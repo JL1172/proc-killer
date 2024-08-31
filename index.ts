@@ -14,7 +14,10 @@ class KillPort {
   public async main(): Promise<void> {
     const int = await this.getPort();
     if (int === 1) {
-      await this.getPid();
+      const int2 = await this.getPid();
+      if (int2 === 1) {
+        await this.killProcess();
+      }
     }
   }
 
@@ -48,7 +51,7 @@ class KillPort {
       this.reportError("getPort", err + "");
     }
   }
-  private async getPid(): Promise<void> {
+  private async getPid(): Promise<void | number> {
     try {
       console.clear();
       const command = `sudo lsof -i :${this.port}`;
@@ -71,15 +74,30 @@ class KillPort {
         //* this might not always be 9 idk
       }
       console.log(`Successfully fetched PID ${chalk.blueBright(this.pid)}`);
+      return 1;
     } catch (err) {
       this.reportError("getPid", err + "");
     }
   }
   private async killProcess(): Promise<void> {
     try {
-        console.clear()
+      console.clear();
+      const command = `sudo kill -9 ${this.pid}`;
+      const result = await new Promise((resolve, reject) => {
+        exec(command, (err, stdout, stderr) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(stdout);
+          }
+        });
+      });
+      console.log(
+        chalk.greenBright(`Successfully killed process: ${this.pid}`)
+      );
+      process.exit(0);
     } catch (err) {
-        this.reportError("killProcess", err + "");
+      this.reportError("killProcess", err + "");
     }
   }
   private parseNumber(value: any) {
