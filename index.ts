@@ -1,6 +1,6 @@
-import * as ora from "ora";
 import chalk from "chalk";
 import * as rl from "readline-sync";
+import { exec } from "child_process";
 
 class KillPort {
   private port: number;
@@ -12,11 +12,13 @@ class KillPort {
   }
 
   public async main(): Promise<void> {
-    await this.getPort();
-    await this.getPid();
+    const int = await this.getPort();
+    if (int === 1) {
+      await this.getPid();
+    }
   }
 
-  private async getPort(): Promise<void> {
+  private async getPort(): Promise<number | void> {
     try {
       console.clear();
       const answer: any = rl.question(
@@ -31,7 +33,9 @@ class KillPort {
         } else {
           console.clear();
           console.log(
-            `Inputted port: ${this.port}. Press ${chalk.blueBright(
+            `Inputted port: ${chalk.cyanBright(
+              this.port
+            )}. Press ${chalk.blueBright(
               "[control + c]"
             )} to restart process or do nothing to proceed. \n You have ${count} second(s) remaining.`
           );
@@ -39,6 +43,7 @@ class KillPort {
         }
       }, 1000);
       await new Promise((resolve) => setTimeout(resolve, 6000));
+      return 1;
     } catch (err) {
       this.reportError("getPort()", err + "");
     }
@@ -46,10 +51,20 @@ class KillPort {
   private async getPid(): Promise<void> {
     try {
       console.clear();
-      const spinner = ora.default();
-      spinner.start("Fetching PID");
-      await new Promise((resolve) => setTimeout(resolve, 5000));
-      spinner.fail("Ending Fetch");
+      const command = `sudo lsof -i :${this.port}`;
+      const pid = await new Promise((resolve, reject) => {
+        exec(command, (err, stdout, stderr) => {
+          resolve(stdout);
+        });
+      });
+      if (!pid) {
+        throw new Error(
+          chalk.red(`No process at port: ${this.port} is active.`)
+        );
+      } else {
+        console.log(typeof pid);
+      }
+      //   await new Promise((resolve) => setTimeout(resolve, 5000));
     } catch (err) {
       this.reportError("getPid", err + "");
     }

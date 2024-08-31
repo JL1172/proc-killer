@@ -12,12 +12,10 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.2",
-    "ora": "^3.4.0",
     "readline-sync": "^1.4.10"
   },
   "devDependencies": {
     "@types/node": "^22.5.1",
-    "@types/ora": "^3.2.0",
     "@types/readline-sync": "^1.4.8",
     "typescript": "^5.5.4"
   }
