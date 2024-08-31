@@ -1,6 +1,11 @@
-import * as rl from "readline-sync";
+import readline from "readline";
 import * as ora from "ora";
 import chalk from "chalk";
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
 class KillPort {
   private port: number;
@@ -9,26 +14,44 @@ class KillPort {
     this.port = Infinity;
     this.pid = Infinity;
   }
+
   public getPort(): void {
     try {
-      const portNumber: any = rl.questionInt(
-        chalk.greenBright("Enter port you want to kill: ")
+      console.clear();
+      rl.question(
+        chalk.greenBright("Enter port you want to kill: "),
+        (answer: any) => {
+          this.parseNumber(answer);
+          rl.close();
+        }
       );
-      if (isNaN(Number(portNumber))) {
-        throw new TypeError("Port number input must be integer.");
-      } else {
-        this.port = Number(portNumber);
-      }
     } catch (err) {
-      this.reportError("getPort", err + "");
+      this.reportError(this.getPort, err + "");
     }
   }
-  private reportError(methodName: string, err: string): void {
-    console.error(chalk.red(`Error from ${methodName}: ${err}`));
+  private parseNumber(value: any) {
+    if (isNaN(Number(value))) {
+      throw new TypeError("Port number input must be integer.");
+    }
+    const working_value = Number(value);
+    if (
+      working_value < Number.MIN_SAFE_INTEGER ||
+      working_value > Number.MAX_SAFE_INTEGER
+    ) {
+      throw new RangeError(
+        "Value must be greater than 2^-63 and less than 2^63."
+      );
+    }
+    if (isFinite(working_value) === false) {
+      throw new RangeError("Value must be finite.");
+    }
+  }
+  private reportError(methodName: Function, err: string): void {
+    console.error(chalk.red(`Error from ${methodName.name}: ${err}`));
     console.timeStamp();
     console.log("\n retrying in 2 seconds.");
     setTimeout(() => {
-      this.getPort();
+      methodName();
     }, 2000);
   }
 }
