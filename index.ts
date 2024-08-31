@@ -4,7 +4,7 @@ import { exec } from "child_process";
 
 class KillPort {
   private port: number;
-  private readonly pid: number;
+  private pid: number;
 
   constructor() {
     this.port = Infinity;
@@ -45,7 +45,7 @@ class KillPort {
       await new Promise((resolve) => setTimeout(resolve, 6000));
       return 1;
     } catch (err) {
-      this.reportError("getPort()", err + "");
+      this.reportError("getPort", err + "");
     }
   }
   private async getPid(): Promise<void> {
@@ -62,11 +62,24 @@ class KillPort {
           chalk.red(`No process at port: ${this.port} is active.`)
         );
       } else {
-        console.log(typeof pid);
+        this.pid = Number(
+          (pid as string)
+            .split(" ")
+            .filter((n) => n)
+            .at(-9)
+        );
+        //* this might not always be 9 idk
       }
-      //   await new Promise((resolve) => setTimeout(resolve, 5000));
+      console.log(`Successfully fetched PID ${chalk.blueBright(this.pid)}`);
     } catch (err) {
       this.reportError("getPid", err + "");
+    }
+  }
+  private async killProcess(): Promise<void> {
+    try {
+        console.clear()
+    } catch (err) {
+        this.reportError("killProcess", err + "");
     }
   }
   private parseNumber(value: any) {
