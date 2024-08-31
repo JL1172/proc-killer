@@ -5,18 +5,19 @@
   "main": "index.ts",
   "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npx ts-node index.ts",
+    "postinstall": "run 'npm run start'"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.2",
-    "readline-sync": "^1.4.10"
+    "readline-sync": "^1.4.10",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/node": "^22.5.1",
-    "@types/readline-sync": "^1.4.8",
-    "typescript": "^5.5.4"
+    "@types/readline-sync": "^1.4.8"
   }
 }
