@@ -1,32 +1,57 @@
-import readline from "readline";
 import * as ora from "ora";
 import chalk from "chalk";
-
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+import * as rl from "readline-sync";
 
 class KillPort {
   private port: number;
   private readonly pid: number;
+
   constructor() {
     this.port = Infinity;
     this.pid = Infinity;
   }
 
-  public getPort(): void {
+  public async main(): Promise<void> {
+    await this.getPort();
+    await this.getPid();
+  }
+
+  private async getPort(): Promise<void> {
     try {
       console.clear();
-      rl.question(
-        chalk.greenBright("Enter port you want to kill: "),
-        (answer: any) => {
-          this.parseNumber(answer);
-          rl.close();
-        }
+      const answer: any = rl.question(
+        chalk.greenBright("Enter port you want to kill: ")
       );
+      this.parseNumber(answer);
+      this.port = Number(answer);
+      let count: number = 5;
+      const intervalId = setInterval(() => {
+        if (count === 0) {
+          clearInterval(intervalId);
+        } else {
+          console.clear();
+          console.log(
+            `Inputted port: ${this.port}. Press ${chalk.blueBright(
+              "[control + c]"
+            )} to restart process or do nothing to proceed. \n You have ${count} second(s) remaining.`
+          );
+          count--;
+        }
+      }, 1000);
+      await new Promise((resolve) => setTimeout(resolve, 6000));
     } catch (err) {
-      this.reportError(this.getPort, err + "");
+      this.reportError("getPort()", err + "");
+    }
+  }
+  private async getPid(): Promise<void> {
+    try {
+      console.clear();
+      const spinner = ora.default();
+      spinner.start("Fetching PID");
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+      spinner.fail("Ending Fetch");
+    } catch (err) {
+      this.reportError("getPid", err + "");
     }
   }
   private parseNumber(value: any) {
@@ -46,15 +71,24 @@ class KillPort {
       throw new RangeError("Value must be finite.");
     }
   }
-  private reportError(methodName: Function, err: string): void {
-    console.error(chalk.red(`Error from ${methodName.name}: ${err}`));
-    console.timeStamp();
-    console.log("\n retrying in 2 seconds.");
-    setTimeout(() => {
-      methodName();
-    }, 2000);
+
+  private reportError(methodName: string, err: string): void {
+    let count: number = 5;
+    const intervalId = setInterval(() => {
+      if (count === 0) {
+        clearInterval(intervalId);
+        this.main();
+      } else {
+        console.clear();
+        console.error(chalk.red(`Error from ${methodName}: ${err}`));
+        console.timeStamp();
+        console.trace();
+        console.log(`\n retrying in ${count} seconds.`);
+        count--;
+      }
+    }, 1000);
   }
 }
 
 const killPortInstance = new KillPort();
-killPortInstance.getPort();
+killPortInstance.main();
