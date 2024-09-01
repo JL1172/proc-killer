@@ -6,7 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "start": "npx ts-node index.ts",
-    "postinstall": "run 'npm run start'"
+    "postinstall": "echo \"run 'npm run start'\""
   },
   "keywords": [],
   "author": "",

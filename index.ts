@@ -1,11 +1,10 @@
 import chalk from "chalk";
 import * as rl from "readline-sync";
-import { exec } from "child_process";
+import { exec, execSync } from "child_process";
 
 class KillPort {
   private port: number;
   private pid: number;
-
   constructor() {
     this.port = Infinity;
     this.pid = Infinity;
@@ -20,7 +19,35 @@ class KillPort {
       }
     }
   }
-
+  public static async expediteKillProcess(port: number) {
+    try {
+      const pid = await new Promise((resolve) => {
+        exec(`lsof -i :${port}`, (error, stdout) => {
+          resolve(stdout);
+        });
+      });
+      if (!pid) {
+        throw new Error("No process detected at port " + port);
+      }
+      const pid_num: number = Number(
+        (pid as string)
+          .split(" ")
+          .filter((n) => n)
+          .at(-9)
+      );
+      await new Promise((resolve, reject) => {
+        exec(`kill -9 ${pid_num}`, (error) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve;
+          }
+        });
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
   private async getPort(): Promise<number | void> {
     try {
       console.clear();
@@ -136,5 +163,27 @@ class KillPort {
   }
 }
 
-const killPortInstance = new KillPort();
-killPortInstance.main();
+function execute_file() {
+  try {
+    if (process.argv.length > 2) {
+      const flags = Number(process.argv[2].split("").slice(2).join(""));
+      if (isNaN(flags) === false && typeof flags === "number") {
+        KillPort.expediteKillProcess(flags);
+      } else {
+        const killPortInstance = new KillPort();
+        killPortInstance.main();
+      }
+    } else {
+      const killPortInstance = new KillPort();
+      killPortInstance.main();
+    }
+  } catch (err) {
+    console.error(`Error: If you are running script with flags utilizing npm scripts, ensure it follows the following format: \n
+      ${chalk.bgRgb(51, 51, 51)("npm start -- --<port>")} \n
+      or if you are executing via ts-node, follow the following format: \n
+         ${chalk.bgRgb(51, 51, 51)("(npx) ts-node --<port>")} \n
+      `);
+  }
+}
+
+execute_file();
