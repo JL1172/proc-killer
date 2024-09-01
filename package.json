@@ -1,6 +1,6 @@
 {
-  "name": "kill-process",
-  "version": "1.0.0",
+  "name": "killp",
+  "version": "1.0.1",
   "description": "This is a simple cli application that allows you to kill processes given a port number either through flags or an interactive, prompt led cli interaction.",
   "main": "index.ts",
   "type": "commonjs",
