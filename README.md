@@ -1,4 +1,4 @@
-# Welcome to killp
+# Welcome to Proc-Killer
 
 #### **A lightweight package that searches and ends processes for linux/macos** 
 
@@ -12,7 +12,7 @@ Lastly, when I say lack of interfacing I am refering to, primarily, when you, fo
 
 ## 1. ***Method one*** (interactive)
 
-1. Going into the package in node_modules, copying and pasting the code, or cloning the [repo here](https://github.com/JL1172/kill-port)
+1. Going into the package in node_modules, copying and pasting the code, or cloning the [repo here](https://github.com/JL1172/proc-killer)
 2. Running `npm install` if cloning the repo
 2. Creating a shortcut for your desktop that allows you to run this script and access the prompt based CLI.
 > [!NOTE]
@@ -43,19 +43,20 @@ Lastly, when I say lack of interfacing I am refering to, primarily, when you, fo
 
 ## 2. ***Method two***
 
-1. Going into the package in node_modules, copying and pasting the code, or cloning the [repo here](https://github.com/JL1172/kill-port)
+1. Going into the package in node_modules, copying and pasting the code, or cloning the [repo here](https://github.com/JL1172/proc-killer)
 2. Running `npm install` if cloning the repo
 3. Running one of the following commands:
   - `npm start` with no flags to invoke prompt based interaction with this application
   - `npm start -- --<port>` Will immediately do a search and end process at that port.
-  - `npx ts-node index.ts --<port>` same as above except not calling package.json scripts and using ts-node.
+  - `npm startjs -- --<port>`
+  - `npx ts-node dev/index.ts --<port>` same as above except not calling package.json scripts and using ts-node.
 
 ## 3. ***Method three***
 
-1. `npm install -g killp`
-2. Running from your terminal `killp --<port>` to kill a process
+1. `npm install -g proc-killer`
+2. Running from your terminal `proc-killer --<port>` to kill a process
 
 *or* 
 
-1. `npm install killp` to locally install for project
-2. `npx killp --<port>`  
+1. `npm install proc-killer` to locally install for project
+2. `npx proc-killer --<port>`  

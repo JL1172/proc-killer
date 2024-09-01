@@ -1,5 +1,5 @@
 {
-  "name": "kill-proc",
+  "name": "proc-killer",
   "version": "1.0.0",
   "description": "This is a simple cli application that allows you to kill processes given a port number either through flags or an interactive, prompt led cli interaction.",
   "main": "index.js",
