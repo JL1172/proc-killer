@@ -4,9 +4,9 @@
 
 ## The problem this solves
 
-<p>Have you ever worked on a project and found yourself not being able to interface with node processes? In other words, whether it be using the <code>exec<code> function from node's <code>child process module<code>, automating testing, or just having the need to programmatically control processes because of the lack of interfacing with that process, this simple package solves that problem in a few ways.<p>
-<br><br>
-<p>Lastly, when I say lack of interfacing I am refering to, primarily, when you, for one use case, run <code>npm run start<code> on a js/ts application and are not able to <code>ctrl + c<code> out of it to consequently end the process.<p>  
+Have you ever worked on a project and found yourself not being able to interface with node processes? In other words, whether it be using the `exec` function from node's `child process module`, automating testing, or just having the need to programmatically control processes because of the lack of interfacing with that process, this simple package solves that problem in a few ways.
+
+Lastly, when I say lack of interfacing I am refering to, primarily, when you, for one use case, run `npm run start` on a js/ts application and are not able to `ctrl + c` out of it to consequently end the process.  
 
 # The 3 ways you can use this package 
 
