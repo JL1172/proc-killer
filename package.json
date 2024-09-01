@@ -1,15 +1,18 @@
 {
-  "name": "kill-port-script",
+  "name": "killp",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a simple cli application that allows you to kill processes given a port number either through flags or an interactive, prompt led cli interaction.",
   "main": "index.ts",
   "type": "commonjs",
+  "bin": {
+    "killp": "./index.ts"
+  },
   "scripts": {
     "start": "npx ts-node index.ts",
-    "postinstall": "echo \"run 'npm run start'\""
+    "postinstall": "echo \"run 'npm run start (optional flags: -- --<port>)'\""
   },
   "keywords": [],
-  "author": "",
+  "author": "JL1172",
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.2",
@@ -19,5 +22,13 @@
   "devDependencies": {
     "@types/node": "^22.5.1",
     "@types/readline-sync": "^1.4.8"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JL1172/kill-port.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JL1172/kill-port/issues"
+  },
+  "homepage": "https://github.com/JL1172/kill-port#readme"
 }

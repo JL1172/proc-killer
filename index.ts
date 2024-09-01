@@ -1,3 +1,5 @@
+#!/usr/bin/env ts-node
+
 import chalk from "chalk";
 import * as rl from "readline-sync";
 import { exec, execSync } from "child_process";
@@ -182,6 +184,7 @@ function execute_file() {
       ${chalk.bgRgb(51, 51, 51)("npm start -- --<port>")} \n
       or if you are executing via ts-node, follow the following format: \n
          ${chalk.bgRgb(51, 51, 51)("(npx) ts-node --<port>")} \n
+          ${chalk.bgRgb(51, 51, 51)("killp --<port>")}
       `);
   }
 }
