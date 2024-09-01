@@ -54,7 +54,7 @@ Lastly, when I say lack of interfacing I am refering to, primarily, when you, fo
 ## 3. ***Method three***
 
 1. `npm install -g proc-killer`
-2. Running from your terminal `proc-killer --<port>` to kill a process
+2. Running from your terminal `pkill --<port>` to kill a process 
 
 *or* 
 

@@ -1,11 +1,11 @@
 {
   "name": "proc-killer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This is a simple cli application that allows you to kill processes given a port number either through flags or an interactive, prompt led cli interaction.",
   "main": "index.js",
   "type": "commonjs",
   "bin": {
-    "proc-killer": "./index.js"
+    "pkill": "./index.js"
   },
   "scripts": {
     "start": "npx ts-node dev/index.ts",
@@ -27,10 +27,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ https://github.com/JL1172/killp"
+    "url": "git+ https://github.com/JL1172/proc-killer"
   },
   "bugs": {
-    "url": "https://github.com/JL1172/killp/issues"
+    "url": "https://github.com/JL1172/proc-killer/issues"
   },
-  "homepage": "https://github.com/JL1172/killp#readme"
+  "homepage": "https://github.com/JL1172/proc-killer#readme"
 }
