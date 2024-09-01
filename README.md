@@ -15,8 +15,8 @@ Lastly, when I say lack of interfacing I am refering to, primarily, when you, fo
 1. Going into the package in node_modules, copying and pasting the code, or cloning the [repo here](https://github.com/JL1172/kill-port)
 2. Running `npm install` if cloning the repo
 2. Creating a shortcut for your desktop that allows you to run this script and access the prompt based CLI.
-   > [!NOTE]
-   > To assist with this step, I have added pictures/code to walk through the steps of setting this shortcut up to interface with the cli prompts on linux.
+> [!NOTE]
+> To assist with this step, I have added pictures/code to walk through the steps of setting this shortcut up to interface with the cli prompts on linux.
    1. First `cd` into this folder and run the command `chmod +x index.ts` (this gives it executable permissions)
    2. Then create a script that invokes this `index.ts`. You can add this file anywhere on your machine, just ensure it is an `.sh` file.
    3. In this .sh file you just created, add the following code:
