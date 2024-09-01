@@ -1,14 +1,15 @@
 {
-  "name": "killp",
-  "version": "1.0.1",
+  "name": "kill-proc",
+  "version": "1.0.0",
   "description": "This is a simple cli application that allows you to kill processes given a port number either through flags or an interactive, prompt led cli interaction.",
-  "main": "index.ts",
+  "main": "index.js",
   "type": "commonjs",
   "bin": {
-    "killp": "./index.ts"
+    "killp": "./index.js"
   },
   "scripts": {
-    "start": "npx ts-node index.ts",
+    "start": "npx ts-node dev/index.ts",
+    "startjs": "node index.js",
     "postinstall": "echo \"run 'npm run start (optional flags: -- --<port>)'\""
   },
   "keywords": [],
@@ -21,7 +22,8 @@
   },
   "devDependencies": {
     "@types/node": "^22.5.1",
-    "@types/readline-sync": "^1.4.8"
+    "@types/readline-sync": "^1.4.8",
+    "typescript": "^5.5.4"
   },
   "repository": {
     "type": "git",

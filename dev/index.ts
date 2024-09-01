@@ -1,6 +1,6 @@
 #!/usr/bin/env ts-node
 
-import chalk from "chalk";
+import * as chalk from "chalk";
 import * as rl from "readline-sync";
 import { exec, execSync } from "child_process";
 
