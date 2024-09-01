@@ -5,12 +5,12 @@
   "main": "index.js",
   "type": "commonjs",
   "bin": {
-    "killp": "./index.js"
+    "proc-killer": "./index.js"
   },
   "scripts": {
     "start": "npx ts-node dev/index.ts",
     "startjs": "node index.js",
-    "postinstall": "echo \"run 'npm run start (optional flags: -- --<port>)'\""
+    "postinstall": "echo \"run 'npm run start or npm run startjs (optional flags: -- --<port>)'\""
   },
   "keywords": [],
   "author": "JL1172",
